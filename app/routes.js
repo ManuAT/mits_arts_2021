@@ -106,6 +106,30 @@ app.post('/api/event', function (req, res) {
    
 });
 
+// Event-Update
+
+app.put('/api/event', function (req, res) { 
+    console.log("Event_update_body",req.body);
+    
+    var newData={
+        eventName : req.body.eventName,
+        eventCategory : req.body.eventCategory,
+        eventTime : req.body.eventTime,
+        eventWinner : req.body.eventWinner
+
+    }
+  
+        event.update({'_id':req.body._id}, {
+            $set:newData
+        }, {}, function(err, updated_data) {
+        if (err)
+            res.send(err);
+        // console.log(updated_data)
+        res.send(updated_data);
+        });
+      
+});
+
 // event -get
 app.get('/api/event', function (req, res) { 
     console.log("get_query_delete",req.query)
