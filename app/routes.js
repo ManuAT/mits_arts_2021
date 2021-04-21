@@ -1,15 +1,16 @@
 var score = require('./models/score');
+var event = require('./models/event');
 
 
 
-function getvalues(res) {
-    data.find(function (err, lms) {       
-        if (err) {
-            res.send(err);
-        }
-        res.json(lms); 
-    });
-};
+// function getvalues(res) {
+//     data.find(function (err, lms) {       
+//         if (err) {
+//             res.send(err);
+//         }
+//         res.json(lms); 
+//     });
+// };
 module.exports = function (app) {
 
 
@@ -36,6 +37,10 @@ module.exports = function (app) {
 
 // });
 
+// Score ----API
+
+// Score-Update
+
 app.put('/api/score', function (req, res) { 
     console.log("time",req.body);
     
@@ -59,9 +64,9 @@ app.put('/api/score', function (req, res) {
 });
 
 
-
-    app.get('/api/score', function (req, res) { 
-        console.log("code",req.query)
+// Score-featch
+app.get('/api/score', function (req, res) { 
+        console.log("get_query",req.query)
      score.find({},function (err, todo) {
      console.log(todo)
      if (err)
@@ -71,14 +76,22 @@ app.put('/api/score', function (req, res) {
 });
 
 
-app.post('/api/score', function (req, res) {  
+
+// Event----API
+
+// Event create
+app.post('/api/event', function (req, res) {  
     console.log(req.body);
-          
-    score.create({
-        red: req.body.red,
-        green: req.body.green,
-        blue: req.body.blue,
-        yellow: req.body.yellow
+    
+    event.create({
+        // red: req.body.red,
+        // green: req.body.green,
+        // blue: req.body.blue,
+        // yellow: req.body.yellow
+        eventName : req.body.eventName,
+        eventCategory : req.body.eventCategory,
+        eventTime : req.body.eventTime,
+        eventWinner : req.body.eventWinner
        }, function (err, todo) {
         console.log("response");
         if (err){
@@ -93,6 +106,31 @@ app.post('/api/score', function (req, res) {
    
 });
 
+// event -get
+app.get('/api/event', function (req, res) { 
+    console.log("get_query_delete",req.query)
+    event.find({},function (err, todo) {
+        console.log(todo)
+        if (err)
+            res.send(err);
+        res.send(todo);
+    });
+});
+
+// Event --delete
+
+app.delete('/api/event', function (req, res) { 
+    console.log("get_query",req.body)
+    event.deleteOne(req.body, function(err, todo) {
+        console.log(todo)
+        if (err)
+            res.send(err);
+        res.send(todo);
+        console.log("Deleted");
+      });
+});
+
+
 
 // app.get('/main', function (req, res) {
 //     res.sendFile(__dirname + '/dist/billingApp/index.html'); 
@@ -100,5 +138,22 @@ app.post('/api/score', function (req, res) {
 // app.get('/reg', function (req, res) {
 //     res.sendFile(__dirname + '/dist/billingApp/index.html'); 
 // });
+
+// testing
+
+// {
+//     "red": 33,
+//     "green": 200,
+//     "blue": 200,
+//     "yellow": 300
+// }
+
+// {
+//     "eventName": "Evnet_3",
+//     "eventCategory": "cat3",
+//     "eventTime": "12-10-10",
+//     "eventWinner": "Ebin CSE S8"
+// }
+
 
 };
