@@ -145,7 +145,7 @@ app.get('/api/event', function (req, res) {
 
 app.delete('/api/event', function (req, res) { 
     console.log("get_query_delete",req.query)
-    event.deleteOne(req.query._id, function(err, todo) {
+    event.deleteOne({_id:req.query._id}, function(err, todo) {
         console.log(todo)
         if (err)
             res.send(err);
