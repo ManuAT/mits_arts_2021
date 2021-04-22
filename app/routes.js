@@ -132,7 +132,7 @@ app.put('/api/event', function (req, res) {
 
 // event -get
 app.get('/api/event', function (req, res) { 
-    console.log("get_query_delete",req.query)
+    console.log("get_query",req.query)
     event.find({},function (err, todo) {
         console.log(todo)
         if (err)
@@ -144,8 +144,8 @@ app.get('/api/event', function (req, res) {
 // Event --delete
 
 app.delete('/api/event', function (req, res) { 
-    console.log("get_query",req.body)
-    event.deleteOne(req.body._id, function(err, todo) {
+    console.log("get_query_delete",req.query)
+    event.deleteOne(req.query._id, function(err, todo) {
         console.log(todo)
         if (err)
             res.send(err);
